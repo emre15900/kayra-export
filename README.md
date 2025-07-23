@@ -135,15 +135,3 @@ npm run test
 ## 📝 Lisans
 
 Bu proje MIT lisansı altında lisanslanmıştır.
-
-## 🤝 Katkıda Bulunma
-
-1. Fork edin
-2. Feature branch oluşturun
-3. Commit edin
-4. Push edin
-5. Pull Request açın
-
-## 📞 İletişim
-
-Sorularınız için issue açabilir veya iletişime geçebilirsiniz.
