@@ -44,12 +44,12 @@ kayra-export/
 
 ### 1. Bağımlılıkları Yükle
 ```bash
-npm run install:all
+yarn run install:all
 ```
 
 ### 2. Geliştirme Ortamında Çalıştır
 ```bash
-npm run dev
+yarn run dev
 ```
 
 Bu komut her iki uygulamayı da aynı anda başlatır:
