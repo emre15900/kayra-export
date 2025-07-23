@@ -129,7 +129,7 @@ yarn run build
 ## 🧪 Test
 
 ```bash
-npm run test
+yarn run test
 ```
 
 ## 📝 Lisans
