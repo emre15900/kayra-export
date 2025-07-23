@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "Micro-frontend product and cart application",
   "scripts": {
-    "dev": "concurrently \"npm run dev:home\" \"npm run dev:cart\"",
-    "dev:home": "cd home && npm run dev",
-    "dev:cart": "cd cart && npm run dev",
-    "build": "npm run build:home && npm run build:cart",
-    "build:home": "cd home && npm run build",
-    "build:cart": "cd cart && npm run build",
-    "install:all": "npm install && cd home && npm install && cd ../cart && npm install"
+    "dev": "concurrently \"yarn dev:home\" \"yarn dev:cart\"",
+    "dev:home": "cd home && yarn dev",
+    "dev:cart": "cd cart && yarn dev",
+    "build": "yarn build:home && yarn build:cart",
+    "build:home": "cd home && yarn build",
+    "build:cart": "cd cart && yarn build",
+    "install:all": "yarn install && cd home && yarn install && cd ../cart && yarn install"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
