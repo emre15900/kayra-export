@@ -1,0 +1,17 @@
+{
+  "name": "kayra-export",
+  "version": "1.0.0",
+  "description": "Micro-frontend product and cart application",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:home\" \"npm run dev:cart\"",
+    "dev:home": "cd home && npm run dev",
+    "dev:cart": "cd cart && npm run dev",
+    "build": "npm run build:home && npm run build:cart",
+    "build:home": "cd home && npm run build",
+    "build:cart": "cd cart && npm run build",
+    "install:all": "npm install && cd home && npm install && cd ../cart && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
