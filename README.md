@@ -95,7 +95,7 @@ docker-compose up --build
 
 ### Build ve Deploy
 ```bash
-npm run build
+yarn run build
 ```
 
 ## 📱 Responsive Tasarım
