@@ -13,5 +13,8 @@
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "webpack": "^5.100.2"
   }
 }

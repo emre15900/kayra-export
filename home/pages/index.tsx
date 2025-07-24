@@ -81,7 +81,7 @@ export default function HomePage() {
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4 text-balance">
-            Premium Ürünlerimizi Keşfedin
+            Premium ürünlerimizi Keşfedin
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl">
             Kayra Export olarak, en kaliteli ürünleri sizlerle buluşturuyoruz. 
@@ -97,4 +97,4 @@ export default function HomePage() {
       </main>
     </div>
   )
-}
+} 
