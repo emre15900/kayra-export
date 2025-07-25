@@ -1,137 +1,191 @@
-# Kayra Export - Mikro-Frontend Ürün & Sepet Uygulaması
+# Micro-Frontend E-commerce Platform
 
-Bu proje, Next.js ve Module Federation kullanarak geliştirilmiş mikro-frontend mimarisine sahip bir e-ticaret uygulamasıdır.
+Modern e-commerce platform built with Next.js MultiZone architecture, featuring separate micro-frontends for home and cart functionality.
 
-## 🏗️ Proje Yapısı
+## Architecture
 
-```
-kayra-export/
-├── home/             # Ürün listeleme uygulaması (Port: 3000)
-├── cart/             # Sepet uygulaması (Port: 3001)
-├── shared/           # Ortak tipler ve bileşenler
-├── docker-compose.yml
-└── README.md
-```
+This project demonstrates a micro-frontend architecture with:
 
-## 🚀 Özellikler
+- **Home App** (Port 3000): Product listing, details, and main shopping interface
+- **Cart App** (Port 3001): Shopping cart management and checkout process
+- **Shared**: Common types, utilities, and data structures
 
-### Home Uygulaması (localhost:3000)
-- ✅ Ürün listeleme ve detayları
-- ✅ Modern, responsive tasarım
-- ✅ Redux Toolkit ile state yönetimi
-- ✅ Toast bildirimleri
-- ✅ Sepete ekleme işlevi
+## Technologies
 
-### Cart Uygulaması (localhost:3001)
-- ✅ Sepet ürünlerini listeleme
-- ✅ Miktar güncelleme
-- ✅ Ürün silme
-- ✅ Sipariş özeti
-- ✅ Boş sepet durumu
+- **Framework**: Next.js 13 with App Router
+- **Package Manager**: Yarn with Workspaces
+- **Styling**: Tailwind CSS with shadcn/ui components
+- **State Management**: Event-driven communication via localStorage
+- **Containerization**: Docker & Docker Compose
+- **Architecture**: Next.js MultiZone for micro-frontend coordination
 
-## 🛠️ Teknolojiler
+## Features
 
-- **Next.js 14** (App Router)
-- **TypeScript**
-- **Tailwind CSS**
-- **Redux Toolkit**
-- **Module Federation**
-- **Docker & Docker Compose**
-- **React Hot Toast**
-- **Lucide React Icons**
+### Home Application
+- Product catalog with responsive grid layout
+- Product cards with images, ratings, and descriptions
+- Add to cart functionality with toast notifications
+- Cross-app cart counter updates
+- Modern hero section and feature highlights
+- Responsive navigation with mobile menu
 
-## 📦 Kurulum
+### Cart Application
+- Real-time cart item display and management
+- Quantity adjustment and item removal
+- Order summary with tax calculation
+- Checkout process simulation
+- Empty cart state with call-to-action
+- Cross-app navigation integration
 
-### 1. Bağımlılıkları Yükle
+### Technical Features
+- **Micro-frontend Communication**: Event-driven architecture using custom events
+- **State Synchronization**: Real-time updates between apps via localStorage
+- **Docker Integration**: Containerized services with Docker Compose
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Type Safety**: Shared TypeScript types across applications
+- **Performance**: Optimized images and lazy loading
+
+## Getting Started
+
+### Prerequisites
+- Node.js 18+
+- Yarn package manager
+- Docker & Docker Compose (for containerized deployment)
+
+### Development Setup
+
+1. **Install dependencies**:
 ```bash
-yarn run install:all
+yarn install
 ```
 
-### 2. Geliştirme Ortamında Çalıştır
+2. **Start development servers**:
 ```bash
-yarn run dev
+yarn dev
 ```
 
-Bu komut her iki uygulamayı da aynı anda başlatır:
+This will start both applications:
 - Home: http://localhost:3000
-- Cart: http://localhost:3001
+- Cart: http://localhost:3001/cart
 
-### 3. Docker ile Çalıştır
+### Docker Deployment
+
+1. **Build and start containers**:
 ```bash
-docker-compose up --build
+yarn docker:build
+yarn docker:up
 ```
 
-## 🎯 Kullanım
-
-1. **Ürün Listeleme**: Ana sayfada ürünleri görüntüleyin
-2. **Sepete Ekleme**: "Sepete Ekle" butonuna tıklayın
-3. **Sepeti Görüntüleme**: Header'daki sepet butonuna tıklayın
-4. **Miktar Güncelleme**: Sepette + ve - butonlarını kullanın
-5. **Ürün Silme**: Çöp kutusu ikonuna tıklayın
-
-## 🏗️ Mimari
-
-### Module Federation
-- Her uygulama bağımsız olarak çalışır
-- Bileşenler arası paylaşım
-- Runtime'da dinamik yükleme
-
-### State Yönetimi
-- Redux Toolkit kullanımı
-- Her uygulama kendi store'una sahip
-- Cross-app iletişim için postMessage API
-
-### Styling
-- Tailwind CSS ile utility-first yaklaşım
-- Responsive tasarım
-- Tutarlı design system
-
-## 🔧 Geliştirme
-
-### Yeni Özellik Ekleme
-1. İlgili uygulamada component oluştur
-2. Store'a gerekli reducer'ları ekle
-3. Type tanımlarını shared/ klasörüne ekle
-
-### Build ve Deploy
+2. **Stop containers**:
 ```bash
-yarn run build
+yarn docker:down
 ```
 
-## 📱 Responsive Tasarım
+## Project Structure
 
-- **Mobile First** yaklaşım
-- Breakpoint'ler: sm, md, lg, xl
-- Flexbox ve Grid kullanımı
-- Touch-friendly interface
-
-## 🎨 UI/UX Özellikleri
-
-- **Animasyonlar**: Fade-in, slide-up, bounce-in
-- **Hover Efektleri**: Smooth transitions
-- **Loading States**: Skeleton screens
-- **Toast Notifications**: Kullanıcı geri bildirimleri
-- **Empty States**: Boş sepet durumu
-
-## 🔒 Güvenlik
-
-- CORS politikaları
-- Environment variables
-- Secure communication between apps
-
-## 📊 Performans
-
-- Code splitting
-- Lazy loading
-- Image optimization
-- Bundle analysis
-
-## 🧪 Test
-
-```bash
-yarn run test
+```
+├── apps/
+│   ├── home/                 # Home micro-frontend
+│   │   ├── app/             # Next.js App Router pages
+│   │   ├── components/      # React components
+│   │   ├── lib/            # Utilities
+│   │   └── Dockerfile      # Container configuration
+│   └── cart/               # Cart micro-frontend
+│       ├── app/           # Next.js App Router pages
+│       ├── components/    # React components
+│       ├── lib/          # Utilities
+│       └── Dockerfile    # Container configuration
+├── shared/                # Shared utilities and types
+│   ├── types/            # TypeScript type definitions
+│   ├── utils/            # Common utilities
+│   └── data/             # Mock data
+├── docker-compose.yml    # Multi-container orchestration
+└── package.json         # Root package configuration
 ```
 
-## 📝 Lisans
+## Configuration
 
-Bu proje MIT lisansı altında lisanslanmıştır.
+### MultiZone Setup
+Each application is configured with Next.js rewrites for cross-app navigation:
+
+- **Home App**: Proxies `/cart/*` requests to cart application
+- **Cart App**: Uses `/cart` base path for proper routing
+
+### Environment Variables
+Applications communicate via:
+- localStorage for persistent state
+- Custom DOM events for real-time updates
+- HTTP rewrites for navigation
+
+## Development Guidelines
+
+### Adding New Features
+1. Determine which micro-frontend owns the feature
+2. Update shared types if needed
+3. Implement event-driven communication for cross-app updates
+4. Ensure responsive design principles
+5. Add appropriate error handling and loading states
+
+### State Management
+- Use localStorage for persistent cart state
+- Dispatch custom events for cross-app communication
+- Implement optimistic updates for better UX
+
+### Styling Guidelines
+- Follow Tailwind CSS utility-first approach
+- Use consistent spacing (8px system)
+- Implement proper contrast ratios
+- Ensure mobile responsiveness
+
+## Deployment
+
+### Production Build
+```bash
+yarn build
+```
+
+### Docker Production
+```bash
+docker-compose -f docker-compose.yml up --build -d
+```
+
+### CI/CD Integration
+The project is ready for deployment on:
+- Vercel (with appropriate configurations)
+- Netlify (static builds)
+- AWS/GCP (containerized deployment)
+
+## Performance Optimizations
+
+- **Image Optimization**: Next.js automatic image optimization
+- **Code Splitting**: Automatic route-based code splitting
+- **Lazy Loading**: Components and images loaded on demand
+- **Caching**: Proper HTTP headers and static asset caching
+- **Bundle Analysis**: Use `@next/bundle-analyzer` for optimization
+
+## Security Considerations
+
+- **CORS Configuration**: Proper cross-origin headers
+- **Input Validation**: Client-side validation with proper sanitization
+- **State Management**: Secure localStorage usage
+- **Container Security**: Non-root user in Docker containers
+
+## Testing Strategy
+
+Recommended testing approach:
+- **Unit Tests**: Jest + React Testing Library
+- **Integration Tests**: Cypress for cross-app workflows
+- **E2E Tests**: Playwright for full user journeys
+- **Visual Regression**: Chromatic for UI consistency
+
+## Contributing
+
+1. Follow conventional commit messages
+2. Ensure type safety across all applications
+3. Test cross-app communication thoroughly
+4. Update documentation for architectural changes
+5. Maintain consistent code style
+
+## License
+
+This project is licensed under the MIT License.
