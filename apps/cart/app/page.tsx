@@ -10,16 +10,14 @@ import { CartStorage } from '../../../shared/utils/cart-storage';
 import type { CartState } from '../../../shared/types/products';
 import { ShoppingBag, CreditCard } from 'lucide-react';
 import { toast } from 'sonner';
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState, AppDispatch } from '../lib/store';
+import { setCart, clearCart as clearCartAction } from '../lib/cart-slice';
 
 export default function CartPage() {
-  const [cart, setCart] = useState<CartState>({ items: [], total: 0, itemCount: 0 });
+  const cart = useSelector((state: RootState) => state.cart) as CartState;
+  const dispatch = useDispatch<AppDispatch>();
   const [isLoading, setIsLoading] = useState(true);
-
-  const loadCart = () => {
-    const currentCart = CartStorage.getCart();
-    setCart(currentCart);
-    setIsLoading(false);
-  };
 
   const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
 
@@ -30,47 +28,55 @@ export default function CartPage() {
         const cartBase64 = searchParams.get('cart') || '';
         const cartString = decodeURIComponent(atob(cartBase64));
         const cartObj = JSON.parse(cartString);
-        CartStorage.setCart(cartObj);
+        localStorage.setItem('micro-frontend-cart', JSON.stringify(cartObj));
+        dispatch(setCart(cartObj));
       } catch (e) {
         // Hatalı veri gelirse sepeti temizle
-        CartStorage.clearCart();
+        localStorage.removeItem('micro-frontend-cart');
+        dispatch(clearCartAction());
+      }
+    } else {
+      // İlk yüklemede localStorage'dan cart'ı oku
+      const stored = localStorage.getItem('micro-frontend-cart');
+      if (stored) {
+        dispatch(setCart(JSON.parse(stored)));
       }
     }
-    loadCart();
-    
-    // Listen for cart updates from other micro-frontends
+    setIsLoading(false);
+    // Diğer micro-frontendlerden gelen güncellemeleri dinle
     const handleCartUpdate = (event: CustomEvent) => {
-      setCart(event.detail);
+      dispatch(setCart(event.detail));
     };
-
     window.addEventListener('cartUpdated', handleCartUpdate as EventListener);
-    
     return () => {
       window.removeEventListener('cartUpdated', handleCartUpdate as EventListener);
     };
   }, []);
+
+  // Cart değiştiğinde localStorage'a yaz
+  useEffect(() => {
+    if (!isLoading) {
+      localStorage.setItem('micro-frontend-cart', JSON.stringify(cart));
+      window.dispatchEvent(new CustomEvent('cartUpdated', { detail: cart }));
+    }
+  }, [cart, isLoading]);
 
   const handleCheckout = () => {
     if (cart.items.length === 0) {
       toast.error('Your cart is empty');
       return;
     }
-    
     toast.success('Checkout initiated!', {
       description: 'Redirecting to payment...',
     });
-    
-    // Simulate checkout process
     setTimeout(() => {
-      CartStorage.clearCart();
-      loadCart();
+      dispatch(clearCartAction());
       toast.success('Order placed successfully!');
     }, 2000);
   };
 
   const handleClearCart = () => {
-    CartStorage.clearCart();
-    loadCart();
+    dispatch(clearCartAction());
     toast.success('Cart cleared');
   };
 
@@ -129,7 +135,6 @@ export default function CartPage() {
                   <CartItemComponent
                     key={item.id}
                     item={item}
-                    onUpdate={loadCart}
                   />
                 ))}
               </div>

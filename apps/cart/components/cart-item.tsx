@@ -7,27 +7,27 @@ import { Card, CardContent } from '@/components/ui/card';
 import type { CartItem } from '../../../shared/types/products';
 import { CartStorage } from '../../../shared/utils/cart-storage';
 import { toast } from 'sonner';
+import { useDispatch } from 'react-redux';
+import { updateQuantity, removeItem } from '../lib/cart-slice';
 
 interface CartItemProps {
   item: CartItem;
-  onUpdate: () => void;
 }
 
-function CartItemComponent({ item, onUpdate }: CartItemProps) {
+function CartItemComponent({ item }: CartItemProps) {
+  const dispatch = useDispatch();
   const handleUpdateQuantity = (newQuantity: number) => {
     if (newQuantity <= 0) {
-      handleRemove();
+      dispatch(removeItem(item.id));
+      toast.success(`${item.name} removed from cart`);
       return;
     }
-    
-    CartStorage.updateItemQuantity(item.id, newQuantity);
-    onUpdate();
+    dispatch(updateQuantity({ id: item.id, quantity: newQuantity }));
     toast.success('Cart updated');
   };
 
   const handleRemove = () => {
-    CartStorage.removeItem(item.id);
-    onUpdate();
+    dispatch(removeItem(item.id));
     toast.success(`${item.name} removed from cart`);
   };
 
