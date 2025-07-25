@@ -2,22 +2,36 @@ import { configureStore } from '@reduxjs/toolkit'
 import productReducer from './productSlice'
 import cartReducer from './cartSlice'
 
+const createStore = () => {
+  return configureStore({
+    reducer: {
+      products: productReducer,
+      cart: cartReducer,
+    },
+    devTools: process.env.NODE_ENV !== 'production',
+  })
+}
+
 let store: any
 
-const createStore = () => configureStore({
-  reducer: {
-    products: productReducer,
-    cart: cartReducer,
-  },
-})
+function initStore() {
+  return configureStore({
+    reducer: {
+      products: productReducer,
+      cart: cartReducer,
+    },
+    devTools: process.env.NODE_ENV !== 'production',
+  })
+}
 
 if (typeof window === 'undefined') {
-  store = createStore()
+  store = initStore()
 } else {
   // Create store if unavailable on client side
-  if (!store) {
-    store = createStore()
+  if (!(window as any).__REDUX_STORE__) {
+    (window as any).__REDUX_STORE__ = initStore()
   }
+  store = (window as any).__REDUX_STORE__
 }
 
 export { store }
