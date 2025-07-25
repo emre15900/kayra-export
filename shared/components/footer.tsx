@@ -1,5 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
+import { Layout, Row, Col, Divider, Space } from 'antd';
+import {
+  FacebookFilled,
+  TwitterSquareFilled,
+  InstagramFilled,
+} from '@ant-design/icons';
+
+const { Footer: AntFooter } = Layout;
 
 interface FooterProps {
   baseUrl?: string;
@@ -7,42 +15,50 @@ interface FooterProps {
 
 export function Footer({ baseUrl = 'http://localhost:3000' }: FooterProps) {
   return (
-    <footer className="bg-gray-900 text-white py-12 mt-16">
+    <AntFooter style={{ background: '#141414', color: '#fff', padding: '48px 0', marginTop: 64 }}>
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <h3 className="text-xl font-bold mb-4">MicroStore</h3>
-            <p className="text-gray-400">Modern e-commerce with micro-frontend architecture</p>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Shop</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li><Link href={`${baseUrl}/products`} className="hover:text-white transition-colors">Electronics</Link></li>
-              <li><Link href={`${baseUrl}/products`} className="hover:text-white transition-colors">Accessories</Link></li>
-              <li><Link href={`${baseUrl}/products`} className="hover:text-white transition-colors">Home & Kitchen</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Support</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li><Link href={`${baseUrl}/help`} className="hover:text-white transition-colors">Help Center</Link></li>
-              <li><Link href={`${baseUrl}/contact`} className="hover:text-white transition-colors">Contact Us</Link></li>
-              <li><Link href={`${baseUrl}/returns`} className="hover:text-white transition-colors">Returns</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Company</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li><Link href={`${baseUrl}/about`} className="hover:text-white transition-colors">About</Link></li>
-              <li><Link href={`${baseUrl}/careers`} className="hover:text-white transition-colors">Careers</Link></li>
-              <li><Link href={`${baseUrl}/privacy`} className="hover:text-white transition-colors">Privacy</Link></li>
-            </ul>
-          </div>
-        </div>
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 MicroStore. All rights reserved.</p>
+        <Row gutter={[32, 32]} justify="center">
+          <Col xs={24} md={6}>
+            <div style={{ fontWeight: 800, fontSize: 24, marginBottom: 12 }}>MicroStore</div>
+            <div style={{ color: '#bfbfbf', fontSize: 14, marginBottom: 16 }}>
+              Modern e-commerce meets micro-frontend architecture.
+            </div>
+            <Space size="middle">
+              <a href="https://facebook.com" target="_blank" rel="noopener" style={{ color: '#1877f2', fontSize: 22 }}><FacebookFilled /></a>
+              <a href="https://twitter.com" target="_blank" rel="noopener" style={{ color: '#1da1f2', fontSize: 22 }}><TwitterSquareFilled /></a>
+              <a href="https://instagram.com" target="_blank" rel="noopener" style={{ color: '#e1306c', fontSize: 22 }}><InstagramFilled /></a>
+            </Space>
+          </Col>
+          <Col xs={24} sm={8} md={6}>
+            <div className="font-semibold mb-4" style={{ fontWeight: 600, marginBottom: 16 }}>Shop</div>
+            <Space direction="vertical" size={8} style={{ color: '#bfbfbf' }}>
+              <Link href={`${baseUrl}/products`} className="hover:text-white" style={{ color: '#bfbfbf' }}>Electronics</Link>
+              <Link href={`${baseUrl}/products`} className="hover:text-white" style={{ color: '#bfbfbf' }}>Accessories</Link>
+              <Link href={`${baseUrl}/products`} className="hover:text-white" style={{ color: '#bfbfbf' }}>Home & Kitchen</Link>
+            </Space>
+          </Col>
+          <Col xs={24} sm={8} md={6}>
+            <div className="font-semibold mb-4" style={{ fontWeight: 600, marginBottom: 16 }}>Support</div>
+            <Space direction="vertical" size={8} style={{ color: '#bfbfbf' }}>
+              <Link href={`${baseUrl}/help`} className="hover:text-white" style={{ color: '#bfbfbf' }}>Help Center</Link>
+              <Link href={`${baseUrl}/contact`} className="hover:text-white" style={{ color: '#bfbfbf' }}>Contact</Link>
+              <Link href={`${baseUrl}/returns`} className="hover:text-white" style={{ color: '#bfbfbf' }}>Returns</Link>
+            </Space>
+          </Col>
+          <Col xs={24} sm={8} md={6}>
+            <div className="font-semibold mb-4" style={{ fontWeight: 600, marginBottom: 16 }}>Company</div>
+            <Space direction="vertical" size={8} style={{ color: '#bfbfbf' }}>
+              <Link href={`${baseUrl}/about`} className="hover:text-white" style={{ color: '#bfbfbf' }}>About</Link>
+              <Link href={`${baseUrl}/careers`} className="hover:text-white" style={{ color: '#bfbfbf' }}>Careers</Link>
+              <Link href={`${baseUrl}/privacy`} className="hover:text-white" style={{ color: '#bfbfbf' }}>Privacy</Link>
+            </Space>
+          </Col>
+        </Row>
+        <Divider style={{ background: '#222', margin: '40px 0 0 0' }} />
+        <div style={{ textAlign: 'center', color: '#bfbfbf', fontSize: 13, marginTop: 24 }}>
+          &copy; 2024 MicroStore. All rights reserved.
         </div>
       </div>
-    </footer>
+    </AntFooter>
   );
 } 
