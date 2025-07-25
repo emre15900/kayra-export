@@ -1,19 +1,24 @@
 {
+  "name": "micro-frontend-ecommerce",
+  "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "home",
-    "cart",
+    "apps/*",
     "shared"
   ],
-  "name": "kayra-export",
-  "version": "1.0.0",
-  "description": "Micro-frontend product and cart application",
   "scripts": {
     "dev": "concurrently \"yarn workspace home dev\" \"yarn workspace cart dev\"",
     "build": "yarn workspace home build && yarn workspace cart build",
-    "lint": "yarn workspace home lint && yarn workspace cart lint"
+    "start": "concurrently \"yarn workspace home start\" \"yarn workspace cart start\"",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up",
+    "docker:down": "docker-compose down"
   },
   "devDependencies": {
-    "concurrently": "^9.2.0"
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "antd": "^5.26.6",
+    "react-icons": "^5.5.0"
   }
 }

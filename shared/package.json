@@ -1,10 +1,7 @@
 {
     "name": "shared",
     "version": "1.0.0",
+    "private": true,
     "main": "index.js",
-    "scripts": {
-        "build": "tsc",
-        "lint": "eslint .",
-        "dev": "node index.js"
-    }
+    "types": "types/product.ts"
 }

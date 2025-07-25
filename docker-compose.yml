@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  home:
+    build:
+      context: .
+      dockerfile: apps/home/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - microstore-network
+    depends_on:
+      - cart
+
+  cart:
+    build:
+      context: .
+      dockerfile: apps/cart/Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - microstore-network
+
+networks:
+  microstore-network:
+    driver: bridge

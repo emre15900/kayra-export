@@ -1,21 +1,21 @@
-# Node.js
+# Node
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Next.js
+.npm/
+.env
+.env.*
 .next/
-out/
-
-# Build
-build/
 dist/
+build/
+*.log
+*.tsbuildinfo
 
 # MacOS
 .DS_Store
-.AppleDouble
-.LSOverride
+
+# Docker
+*.pid
+*.seed
+*.sqlite
 
 # VSCode
 .vscode/
@@ -23,49 +23,20 @@ dist/
 # Logs
 logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Env
-.env
-.env.*
-
-# Docker
-*.local
-Dockerfile*
-docker-compose*
-
-# Test
+# Output
+out/
 coverage/
 
-# Typescript
-*.tsbuildinfo
-
-# Yarn
-yarn.lock
-
 # Others
-*.swp
-*.swo
-
-# Ignore local IDE settings
 .idea/
+*.swp
 
-# Ignore XAMPP
-xamppfiles/
-
-# Ignore system files
-Thumbs.db
-Desktop.ini
-
-# Ignore output from home and cart
-home/.next/
-home/out/
-home/node_modules/
-home/coverage/
-home/.env*
-home/yarn.lock
-cart/.next/
-cart/out/
-cart/node_modules/
-cart/coverage/
-cart/.env*
-cart/yarn.lock
+# Ignore local environment files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

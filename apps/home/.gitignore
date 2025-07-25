@@ -1,0 +1,21 @@
+# Node
+node_modules/
+.next/
+.env
+.env.*
+*.log
+*.tsbuildinfo
+
+# MacOS
+.DS_Store
+
+# Output
+dist/
+build/
+
+# VSCode
+.vscode/
+
+# Others
+.idea/
+*.swp
