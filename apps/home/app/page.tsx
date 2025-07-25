@@ -2,6 +2,7 @@
 
 import { Header } from '@/components/header';
 import { ProductCard } from '@/components/product-card';
+import type { Product } from '../../../shared/types/products';
 import { mockProducts } from '../../../shared/data/products';
 
 export default function HomePage() {

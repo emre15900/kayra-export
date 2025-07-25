@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CartStorage } from '../../../shared/utils/cart-storage';
@@ -9,6 +10,7 @@ import { CartStorage } from '../../../shared/utils/cart-storage';
 export function Header() {
   const [cartItemCount, setCartItemCount] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     // Initial cart count
@@ -26,6 +28,13 @@ export function Header() {
       window.removeEventListener('cartUpdated', handleCartUpdate as EventListener);
     };
   }, []);
+
+  const handleGoToCart = () => {
+    const cart = CartStorage.getCart();
+    const cartString = JSON.stringify(cart);
+    const cartBase64 = btoa(encodeURIComponent(cartString));
+    router.push(`http://localhost:3001/cart?cart=${cartBase64}`);
+  };
 
   return (
     <header className="border-b bg-white sticky top-0 z-50">
@@ -52,17 +61,15 @@ export function Header() {
 
           <div className="flex items-center space-x-4">
             {/* Cart Button */}
-            <Link href="http://localhost:3001/cart">
-              <Button variant="outline" className="relative">
-                <ShoppingCart className="h-4 w-4" />
-                {cartItemCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {cartItemCount}
-                  </span>
-                )}
-                <span className="hidden sm:inline ml-2">Cart</span>
-              </Button>
-            </Link>
+            <Button variant="outline" className="relative" onClick={handleGoToCart}>
+              <ShoppingCart className="h-4 w-4" />
+              {cartItemCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {cartItemCount}
+                </span>
+              )}
+              <span className="hidden sm:inline ml-2">Cart</span>
+            </Button>
 
             {/* Mobile Menu Button */}
             <Button

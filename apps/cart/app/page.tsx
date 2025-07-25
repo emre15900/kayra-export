@@ -1,12 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { CartHeader } from '@/components/cart-header';
-import { CartItem } from '@/components/cart-item';
+import CartItemComponent from '@/components/cart-item';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CartStorage } from '../../../shared/utils/cart-storage';
-import { CartState } from '../../../shared/types/product';
+import type { CartState } from '../../../shared/types/products';
 import { ShoppingBag, CreditCard } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -20,7 +21,21 @@ export default function CartPage() {
     setIsLoading(false);
   };
 
+  const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+
   useEffect(() => {
+    // Eğer URL'de cart parametresi varsa, onu localStorage'a kaydet
+    if (searchParams && searchParams.has('cart')) {
+      try {
+        const cartBase64 = searchParams.get('cart') || '';
+        const cartString = decodeURIComponent(atob(cartBase64));
+        const cartObj = JSON.parse(cartString);
+        CartStorage.setCart(cartObj);
+      } catch (e) {
+        // Hatalı veri gelirse sepeti temizle
+        CartStorage.clearCart();
+      }
+    }
     loadCart();
     
     // Listen for cart updates from other micro-frontends
@@ -111,7 +126,7 @@ export default function CartPage() {
               
               <div className="space-y-4">
                 {cart.items.map((item) => (
-                  <CartItem
+                  <CartItemComponent
                     key={item.id}
                     item={item}
                     onUpdate={loadCart}

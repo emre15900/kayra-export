@@ -4,16 +4,16 @@ import Image from 'next/image';
 import { Minus, Plus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { CartItem as CartItemType } from '../../../shared/types/product';
+import type { CartItem } from '../../../shared/types/products';
 import { CartStorage } from '../../../shared/utils/cart-storage';
 import { toast } from 'sonner';
 
 interface CartItemProps {
-  item: CartItemType;
+  item: CartItem;
   onUpdate: () => void;
 }
 
-export function CartItem({ item, onUpdate }: CartItemProps) {
+function CartItemComponent({ item, onUpdate }: CartItemProps) {
   const handleUpdateQuantity = (newQuantity: number) => {
     if (newQuantity <= 0) {
       handleRemove();
@@ -90,3 +90,5 @@ export function CartItem({ item, onUpdate }: CartItemProps) {
     </Card>
   );
 }
+
+export default CartItemComponent;
