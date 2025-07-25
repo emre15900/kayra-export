@@ -1,20 +1,19 @@
 {
+  "private": true,
+  "workspaces": [
+    "home",
+    "cart",
+    "shared"
+  ],
   "name": "kayra-export",
   "version": "1.0.0",
   "description": "Micro-frontend product and cart application",
   "scripts": {
-    "dev": "concurrently \"yarn dev:home\" \"yarn dev:cart\"",
-    "dev:home": "cd home && yarn dev",
-    "dev:cart": "cd cart && yarn dev",
-    "build": "yarn build:home && yarn build:cart",
-    "build:home": "cd home && yarn build",
-    "build:cart": "cd cart && yarn build",
-    "install:all": "yarn install && cd home && yarn install && cd ../cart && yarn install"
+    "dev": "concurrently \"yarn workspace home dev\" \"yarn workspace cart dev\"",
+    "build": "yarn workspace home build && yarn workspace cart build",
+    "lint": "yarn workspace home lint && yarn workspace cart lint"
   },
   "devDependencies": {
     "concurrently": "^9.2.0"
-  },
-  "dependencies": {
-    "webpack": "^5.100.2"
   }
 }
